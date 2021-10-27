@@ -1,21 +1,21 @@
 Package: tidystopwords
 Type: Package
-Title: Customizable Lists of Stopwords in 53 Languages
-Version: 0.9.0
-Date: 2019-01-23
-Author: Silvie Cinkova, Maciej Eder
+Title: Customisable Stop-Words in 110 Languages
+Version: 0.9.1
+Date: 2021-10-24
+Authors@R: c(person("Silvie", "Cinkova", role = "aut"),
+             person("Maciej", "Eder", role = c("aut", "cre"), email = "maciejeder@gmail.com"))
+Author: Silvie Cinkova [aut],
+  Maciej Eder [aut, cre]
 Maintainer: Maciej Eder <maciejeder@gmail.com>
-Depends: R (>= 2.14)
-Imports: dplyr, stringr
-Description: Functions to generate stopword lists in 53 languages, in a way consistent across all the languages supported. The generated lists are based on the morphological tagset from the Universal Dependencies.
+Depends: R (>= 3.5.0)
+Imports: dplyr
+Description: Functions to generate stop-word lists in 110 languages, in a way consistent across all the languages supported. The generated lists are based on the morphological tagset from the Universal Dependencies.
 License: GPL (>= 3)
 Encoding: UTF-8
-LazyData: FALSE
-LazyDataCompression: TRUE
-SysDataCompression: TRUE
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2019-02-06 20:36:11 UTC; m
+Packaged: 2021-10-26 13:54:31 UTC; m
 Repository: CRAN
-Date/Publication: 2019-02-12 17:20:02 UTC
+Date/Publication: 2021-10-27 12:10:02 UTC

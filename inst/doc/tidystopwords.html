@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Silvie Cinkova" />
 <meta name="author" content="Maciej Eder" />
@@ -16,94 +16,31 @@
 
 <title>Multilingual Stopwords</title>
 
-
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
+});
 </script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
 
 
 
@@ -117,9 +54,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,8 +222,12 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
+
+
+
 
 </head>
 
@@ -299,254 +237,67 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Multilingual Stopwords</h1>
-<h4 class="author"><em>Silvie Cinkova</em></h4>
-<h4 class="author"><em>Maciej Eder</em></h4>
+<h4 class="author">Silvie Cinkova</h4>
+<h4 class="author">Maciej Eder</h4>
 
 
 
-<p>This vignette explains basic functionalities of the package <code>tidystopwords</code>. The idea behind this package is to give the user control over the stopword selection, which is one of the most important steps in any text-mining analysis. Since the following examples involve the very useful <code>%&gt;%</code> operator, you need to activate the <code>dplyr</code> package, let alone <code>tidystopwords</code> (the order of activating them doesn’t matter):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidystopwords)</a></code></pre></div>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>When processing texts, you sometimes need to remove certain groups of unhelpful words; e.g. in topic modeling, you remove the so-called <em>function words</em>, aka <em>auxiliary words</em>: prepositions, conjunctions, articles, etc. You use a <em>stoplist</em> or a <em>list of stop words</em>.</p>
-<p>This package creates stoplists in many languages; it allows you to control which words your individual stoplist will contain, in a way consistent across all the supported languages.</p>
-<p>To make the output examples as crisp as possible, we run additional sampling and filters throughout this document.</p>
-</div>
-<div id="which-word-classes-you-can-control" class="section level1">
-<h1>Which word classes you can control</h1>
-<p>The package lets you control the following word classes:</p>
+<div id="functions-and-arguments" class="section level1">
+<h1>Functions and arguments</h1>
+<p>The <code>tidystopwords</code> package gives you potential stopwords in more than 100 languages. Its main function is <code>generate_stoplist</code>. Its argument <code>language</code> accepts atomic strings and character vectors of language names or language abbreviations corresponding to those listed by the helping function <code>list_supported_languages</code>.</p>
+<p>The <code>list_supported_languages</code> function comes with three numbered output options.</p>
 <ul>
-<li><p><strong>Foreign words</strong>; e.g. <em>faux</em> and <em>pas</em> in <em>This was a terrible faux pas.</em>;</p></li>
-<li><p><strong>Abbreviations</strong>;</p></li>
-<li><p><strong>Pronominals</strong>; e.g. <em>he, mine, her, it, which, where, how, when</em>. As the example suggests, this includes several subtypes of pronouns as well as pronominal adverbs;</p></li>
-<li><p><strong>Determiners</strong> and <strong>Quantifiers</strong> are typically articles (<em>the, a, an</em>) and demonstrative pronouns (e.g. <em>that boy</em>), as well as <em>all, every, both</em>, or <em>none</em>;</p></li>
-<li><p><strong>Conjunctions</strong> are words that connect two clauses that could also stand separately; e.g. <em>and, or</em>;</p></li>
-<li><p><strong>Adpositions</strong> is an umbrella term for prepositions and postpositions. Prepositions (<em>in, for</em>) are common in most languages; postpositions less so (<em>ago</em>);</p></li>
-<li><p><strong>Subordinating conjunctions</strong> are words that connect two clauses in a way that makes one clause syntactically subordinate to the other (<em>if, although</em>);</p></li>
-<li><p><strong>Auxiliary verbs</strong> are typically the verbs <em>to be</em> and <em>to have</em> in complex verb forms (e.g. <em>John has been reading.</em>);</p></li>
-<li><p><strong>Interjections</strong> are words rendering diverse sounds (<em>meow</em>) and short formulaic expressions (<em>yes</em>, <em>hello</em>), often exclamative: <em>dammit</em>, <em>oh</em>.</p></li>
-<li><p><strong>Particles</strong>: their definition is fairly language-specific, ranging from particles in English phrasal verbs (<em>take off</em>) to diverse sentence adverbials (<em>fortunately</em>);</p></li>
-<li><p><strong>Numerals</strong> are digits and words for numbers (<em>three</em>, <em>third</em>).</p></li>
+<li>Option <code>1</code> outputs a character vector of unique word forms.</li>
+<li>Option <code>2</code> outputs a named character vector of word forms. The names denote <code>stop classes</code> roughly corresponding to parts of speech. Note that, in this output, the word forms are not unique. For instance, in English stopwords, <em>that</em> would occur as a subordinating conjunction as well as as a pronoun.<br />
+</li>
+<li>Option <code>3</code> (the default) outputs a data frame, where each row represents a combination of language (columns <code>lang_name</code> and <code>lang_id</code>), word form and word lemma (columns <code>form</code> and <code>lemma</code>), and several other columns explained below.</li>
 </ul>
-<p>By default, the stop list will contain all of these categories, and you can switch off those that you do not want to stoplist in your documents. For instance, you might be particularly interested in quantifying expressions, and then you would like to keep the determiners and quantifiers as well as numerals, but you still want to get rid of all the other word classes. Then you would switch off the determiner-quantifier and numeral stoplisting.</p>
 </div>
-<div id="how-does-the-word-class-control-work" class="section level1">
-<h1>How does the word-class control work?</h1>
-<p><em>If you have no linguistic background and just want to quickly get a stop-word list without much customization, feel free to skip this section.</em></p>
-<div id="universal-dependencies-treebanks" class="section level2">
-<h2>Universal Dependencies Treebanks</h2>
-<p>Our package is <strong>based on a large data frame</strong> called <code>multilingual_stoplist</code>, which has been extracted from the <a href="http://universaldependencies.org/">Universal Dependencies treebanks</a> (henceforth UD).</p>
-<p>UD is a framework for cross-linguistically consistent grammatical annotation that comprises lemmas and morphological categories of individual words, along with syntactic dependencies within each sentence. The corpora are either manually annotated from scratch or transformed from different annotation schemes and manually post-edited.</p>
-<p>The morphological information consists of three parts:</p>
+<div id="definition-of-stopwords" class="section level1">
+<h1>Definition of stopwords</h1>
+<p>The <code>list_supported_languages</code> output is based on <code>multilingual_stoplist</code> - a data frame that was automatically extracted from the <a href="https://universaldependencies.org/">Universal Dependencies treebanks</a> (henceforth UD). Universal Dependencies is a framework for cross-linguistically consistent grammatical annotation. The <code>tidystopwords</code> package uses their lemmatization, <em>universal parts of speech</em>, and <em>universal features</em> to derive an inventory of <em>stop classes</em>:</p>
 <ul>
-<li><strong>Universal Part-of-Speech (POS) tag</strong>;</li>
-<li><strong>Universal Features</strong>;</li>
-<li>Tag from a language-specific tagset.</li>
+<li><code>abbreviation</code> (e.g. <em>e.g., cf., etc</em>);</li>
+<li><code>adposition</code> (preposition or postposition e.g. <em>in</em> and <em>ago</em>);</li>
+<li><code>auxiliary verb</code> (e.g. <em>been, have, must</em>);</li>
+<li><code>conjunction_subordinator</code> (e.g. <em>and</em>, <em>because</em>);</li>
+<li><code>contraction</code> (e.g. <em>’nt</em>);</li>
+<li><code>determiner_quantifier</code> (e.g. <em>third</em>, <em>which</em>, <em>both</em>);</li>
+<li><code>interjection</code> (e.g. <em>yes</em> );</li>
+<li><code>particle</code> (e.g. <em>off</em> in <em>take off</em> )</li>
+<li><code>pronominal</code> (functional words that act as nouns - e.g., <em>him</em>, <em>it</em>. Pronouns acting as adjectives (<em>your</em>) and pronominal adverbs (<em>where</em>) are covered by the <code>determiner_quantifier</code> stop class.)</li>
 </ul>
-<p>While each language can have several language-specific tagsets, the two “universal” morphological categories are cross-linguistically consistent. The <strong>Universal POS tags</strong> are very crude categories, such as <code>NOUN</code> or <code>VERB</code>. A number of more fine-grained morphological categories are stored in the <strong>Universal Features</strong>. These are for instance <code>Number</code>, <code>Animacy</code>, <code>Person</code>, and <code>Tense</code>. Each language uses a specific subset of the Universal Features (e.g. English does neither use <code>Animacy</code>, nor <code>Aspect</code>, while most Slavic languages use a range of cases but no articles).</p>
-<p>For the <code>multilingual_stoplist</code> data frame, we have used the universal morphological annotation and lemmatization from the largest corpora to make sure that we would obtain all forms of closed-class words for the given language. That is why many UD-represented languages are missing in our <code>multilingual_stoplist</code>.</p>
-</div>
-<div id="how-the-word-classes-are-defined" class="section level2">
-<h2>How the word classes are defined</h2>
-<p>Most word classes in our package are defined exclusively by the Universal POS tag. Some, however, are defined as an intersection of a Universal POS and a Universal Feature (or of sets thereof). The definitions are cross-lingual and based on languages we are familiar with. Each language in the UD framework comes with a documentation that maps the language-specific grammar tradition on the UD markup. Should you be unhappy with our pre-defined word classes, we recommend referring directly to the UD documentation of your language and creating your own filter of the <code>multilingual_stoplist</code> data frame with a generic function.</p>
-</div>
-<div id="classes-are-not-mutually-exclusive" class="section level2">
-<h2>Classes are not mutually exclusive</h2>
-<p>Please bear in mind that the classes are not mutually exclusive with respect to homographs. If this might be a problem in your language and your application, double-check this. For instance, you may want to keep all demonstrative pronouns in English. Then you have a problem with <em>that</em>, which also appears as a subordinating conjunction (<em>that boy smiled</em> vs. <em>I know that it is true</em>).</p>
-</div>
-</div>
-<div id="the-functions-and-their-arguments" class="section level1">
-<h1>The functions and their arguments</h1>
-<div id="the-main-function-generate_stoplist" class="section level2">
-<h2>The main function: <code>generate_stoplist()</code></h2>
-<p>The typical use case is removing all non-content words in one language; that is, closed-class words like prepositions, pronouns, or auxiliary verbs, as well as numerals, punctuation and symbols. When you only select your language, you will get a <em>character vector</em> of all its word forms that belong to these classes.</p>
-<p>All this function needs to know to produce such a word list, is your language selection, and you do not need to override the default values of the other arguments. You can enter your language choice either as a full and capitalized language name into the <code>lang_name</code> argument, or as its iso code into the <code>lang_id</code> argument. Both arguments take a string or a vector of strings.</p>
-<p>If you do not select any language by either argument, the function returns all word forms in all languages and you will get a warning.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">111</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">generate_stoplist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## Warning: HEADS UP! Selection includes all supported languages. 
-##   You may want to check your selection.</code></pre>
-<pre><code>## [1] &quot;unsis&quot;    &quot;была&quot;     &quot;nekoliko&quot; &quot;skorajda&quot; &quot;niečo&quot;</code></pre>
-<p>Instead, you probably want to supply the function with a string or a character vector of language name(s) (<code>lang_name</code>) or language id(s) (<code>lang_id</code>) from the selection displayed by the functions <code>list_supported_language_names()</code> and <code>list_supported_language_ids()</code> described in the following sections.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="st">&quot;Spanish&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">5</span>) </a></code></pre></div>
-<pre><code>## [1] &quot;pensar&quot;   &quot;ـ&quot;        &quot;cuarenta&quot; &quot;eso&quot;      &quot;tras&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">23</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="kw">c</span>(<span class="st">&quot;Spanish&quot;</span>, <span class="st">&quot;German&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] &quot;nicht&quot;   &quot;cuyas&quot;   &quot;ello&quot;    &quot;seines&quot;  &quot;unserem&quot;</code></pre>
-<p>If you combine both <code>lang_name</code> and <code>lang_id</code>, you will receive a warning.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">26</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="st">&quot;Spanish&quot;</span>, <span class="dt">lang_id =</span> <span class="st">&quot;es&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## Warning: HEADS UP! Language selection by_name as well as by lang_id. 
-##  You may want to check your selection.</code></pre>
-<pre><code>## [1] &quot;%&quot;       &quot;debemos&quot; &quot;xix&quot;     &quot;toda&quot;    &quot;dejó&quot;</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">90</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="kw">c</span>(<span class="st">&quot;French&quot;</span>, <span class="st">&quot;Hungarian&quot;</span>), </a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">                  <span class="dt">lang_id =</span> <span class="kw">c</span>(<span class="st">&quot;sv&quot;</span>, <span class="st">&quot;hr&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## Warning: HEADS UP! Language selection by_name as well as by lang_id. 
-##  You may want to check your selection.</code></pre>
-<pre><code>##  [1] &quot;måste&quot;     &quot;vingt&quot;     &quot;kod&quot;       &quot;été&quot;       &quot;behöva&quot;   
-##  [6] &quot;peut&quot;      &quot;ceux&quot;      &quot;i&quot;         &quot;svakog&quot;    &quot;leur&quot;     
-## [11] &quot;premda&quot;    &quot;(2)&quot;       &quot;troisième&quot; &quot;nekoliko&quot;  &quot;tih&quot;      
-## [16] &quot;efter&quot;     &quot;dix&quot;       &quot;ma&quot;        &quot;’’&quot;        &quot;dels&quot;</code></pre>
-</div>
-<div id="list_supported_language_names" class="section level2">
-<h2><code>list_supported_language_names()</code></h2>
-<p>This function takes no arguments. It lists full names of the supported languages, capitalized. Use these language names when selecting your language(s).</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">list_supported_language_names</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] &quot;Afrikaans&quot;     &quot;Ancient_Greek&quot; &quot;Arabic&quot;        &quot;Basque&quot;       
-## [5] &quot;Bulgarian&quot;</code></pre>
-</div>
-<div id="list_supported_language_ids" class="section level2">
-<h2><code>list_supported_language_ids()</code></h2>
-<p>This function takes no arguments. It lists the ISO codes of the supported languages. If you do not like to use the full language names, use these when selecting your language(s). You can use both language names and language ids in the same search.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">list_supported_language_ids</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## [1] &quot;af&quot;  &quot;ar&quot;  &quot;bg&quot;  &quot;bxr&quot; &quot;ca&quot;</code></pre>
-</div>
-<div id="list_supported_pos" class="section level2">
-<h2><code>list_supported_pos</code></h2>
-<p>This function takes no arguments. It lists the Universal POS tags represented in <code>multilingual_stoplist</code>:</p>
+<p>In terms of the Universal Dependencies, the stop classes are defined as follows:</p>
 <ul>
-<li><p><code>ADJ</code> = adjective;</p></li>
-<li><p><code>ADP</code> = adposition (preposition or postposition);</p></li>
-<li><p><code>ADV</code> = adverb;</p></li>
-<li><p><code>AUX</code> = auxiliary verb;</p></li>
-<li><p><code>CCONJ</code> = coordinating conjunction;</p></li>
-<li><p><code>DET</code> = determiner;</p></li>
-<li><p><code>INTJ</code> = interjection;</p></li>
-<li><p><code>NOUN</code> = noun;</p></li>
-<li><p><code>NUM</code> = numeral;</p></li>
-<li><p><code>PART</code> = particle;</p></li>
-<li><p><code>PRON</code> = pronoun (careful here, our pronominals are defined across several Universal POS!);</p></li>
-<li><p><code>PROPN</code> = proper noun;</p></li>
-<li><p><code>PUNCT</code> = punctuation;</p></li>
-<li><p><code>SCONJ</code> = subordinating conjunction;</p></li>
-<li><p><code>SYM</code> = symbol (esp. currencies, emojis, trade marks, and maths);</p></li>
-<li><p><code>VERB</code> = verb.</p></li>
+<li><code>abbreviation</code>: <code>ufeat</code> contains <code>Abbr=Yes</code> and upos does not equal <code>NOUN</code> or <code>ADJ</code>;</li>
+<li><code>adposition</code>: <code>upos</code> equals <code>AVP</code>;</li>
+<li><code>auxiliary verb</code>: <code>upos</code> equals <code>AUX</code>;</li>
+<li><code>conjunction_subordinator</code>: <code>upos</code> equals <code>CONJ</code> or <code>SCONJ</code>;</li>
+<li><code>contraction</code>: neither <code>form</code> nor <code>lemma</code> equal <code>_</code>, <code>upos</code> equals <code>_</code> and the form has occurred more than twice in the corpus;</li>
+<li><code>determiner_quantifier</code>: either <code>upos</code> equals <code>DET</code> or <code>ufeat</code> contains <code>PronType</code> and at least one of the following strings: <code>NumType</code>, <code>Ind</code>, <code>Dem</code>, <code>Int</code>, <code>Rel</code>, <code>Tot</code>, <code>Neg</code>;</li>
+<li><code>interjection</code>: <code>upos</code> equals <code>INTJ</code>;</li>
+<li><code>particle</code>: <code>upos</code> equals <code>PART</code>;</li>
+<li><code>pronominal</code>: <code>upos</code> equals <code>PRON</code> with no restrictions to <code>ufeat</code> or <code>ufeat</code> contains <code>PronType</code> but then <code>upos</code> does not equal <code>DET</code>.</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">list_supported_pos</span>()</a></code></pre></div>
-<pre><code>##  [1] &quot;ADJ&quot;   &quot;ADP&quot;   &quot;ADV&quot;   &quot;AUX&quot;   &quot;CCONJ&quot; &quot;DET&quot;   &quot;INTJ&quot;  &quot;NOUN&quot; 
-##  [9] &quot;NUM&quot;   &quot;PART&quot;  &quot;PRON&quot;  &quot;PROPN&quot; &quot;PUNCT&quot; &quot;SCONJ&quot; &quot;SYM&quot;   &quot;VERB&quot;</code></pre>
 </div>
+<div id="vocabulary-coverage" class="section level1">
+<h1>Vocabulary coverage</h1>
+<p>Each version of this package uses the latest UD release available to generate the <code>multilingual_stoplist</code> data frame. Therefore <code>multilingual_stoplist</code> can differ from version to version. Typically, a new UD release brings bigger annotated corpora and emerging corpora of new languages.</p>
+<p>All stopword lists in <code>tidystopwords</code> have been generated automatically from the data available at the moment. Hence their quality depends on the size of the underlying corpora as well as the morphological richness of the given language.</p>
+<p>To allow the user to assess the reliability of the stopword list for the given language, the <code>multilingual_stoplist</code> contains relevant frequency information for each word form in three columns: <code>n_formlemma</code>, <code>n_uposlemma</code>, and<br />
+<code>n_stopclasses</code>.</p>
+<p>The <code>n_formlemma</code> column gives the absolute frequency of the given word form with the given lemma. The <code>n_uposformlemma</code> column gives the absolute frequency of the given word form with the given lemma and upos.</p>
+<p>The <code>n_stopclasses</code> column says in how many stop classes the given word form with the given lemma occurs. For instance <em>that</em> occurs as <code>determiner_quantifier</code> (<em>that pie tastes good</em>), <code>pronominal</code> (<em>don’t mention that</em>), and <code>conjunction_subordinator</code> (<em>say that you will do it</em>).</p>
 </div>
-<div id="getting-more-out-of-generate_stoplist" class="section level1">
-<h1>Getting more out of <code>generate_stoplist()</code></h1>
-<div id="output-as-data-frame" class="section level2">
-<h2>Output as data frame</h2>
-<p>Should you happen to have a UD-tagged text as input and want to discern between homographs, you might be interested in obtaining the tags along with the word forms of the stoplisted words. For this reason, we added the parameter <code>output_form</code>, which you can switch to <code>data.frame</code> from its default value <code>vector</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="st">&quot;English&quot;</span>, <span class="dt">output_form =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">35</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">glimpse</span>()</a></code></pre></div>
-</div>
-<div id="the-stop_lemmas-argument" class="section level2">
-<h2>The <code>stop_lemmas</code> argument</h2>
-<p>You can add your own character vector of lemmas. This will match your vector to the lemma column of <code>multilingual_stoplist</code> and output all associated word forms within your language selection.</p>
-<p>Please note that all words occurring in the output are words observed in the UD corpora. The UD corpora have no balanced-corpus policy, and even the larger ones do not cover the entire vocabulary. Use this argument with caution.</p>
-<p>NB: this argument will not allow you to add lemmas that are not contained in <code>multilingual_stoplist</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">generate_stoplist</span>(<span class="dt">stop_foreign_words =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">                  <span class="dt">stop_abbreviations =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">                  <span class="dt">stop_pronominals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">                  <span class="dt">stop_determiners_quantifiers =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">                  <span class="dt">stop_conjuctions =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">                  <span class="dt">stop_adpositions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7">                  <span class="dt">stop_subordinating_conjunctions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">                  <span class="dt">stop_auxiliary_verbs =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-9" data-line-number="9">                  <span class="dt">stop_interjections =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-10" data-line-number="10">                  <span class="dt">stop_particles =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-11" data-line-number="11">                  <span class="dt">stop_numerals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-12" data-line-number="12">                  <span class="dt">stop_symbols_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-13" data-line-number="13">                  <span class="dt">stop_punctuation_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb22-14" data-line-number="14">                  <span class="dt">stop_lemmas =</span> <span class="kw">c</span>(<span class="st">&quot;by&quot;</span>),</a>
-<a class="sourceLine" id="cb22-15" data-line-number="15">                  <span class="dt">output_form =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb22-16" data-line-number="16"><span class="st">  </span><span class="kw">select</span>(language_name, lemma, word_form) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</a></code></pre></div>
-<pre><code>## Warning: HEADS UP! Selection includes all supported languages. 
-##   You may want to check your selection.</code></pre>
-<pre><code>##   language_name lemma word_form
-## 1     Afrikaans    by        by
-## 2        Danish    by      byen
-## 3       English    by        by
-## 4       English    by        By
-## 5     Norwegian    by     byane
-## 6     Norwegian    by      byen
-## 7     Norwegian    by        by
-## 8        Polish    by        by
-## 9        Slovak    by        by</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="kw">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Slovak&quot;</span>),</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">                  <span class="dt">stop_foreign_words =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb25-3" data-line-number="3">                  <span class="dt">stop_abbreviations =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">                  <span class="dt">stop_pronominals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">                  <span class="dt">stop_determiners_quantifiers =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-6" data-line-number="6">                  <span class="dt">stop_conjuctions =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb25-7" data-line-number="7">                  <span class="dt">stop_adpositions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-8" data-line-number="8">                  <span class="dt">stop_subordinating_conjunctions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-9" data-line-number="9">                  <span class="dt">stop_auxiliary_verbs =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-10" data-line-number="10">                  <span class="dt">stop_interjections =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-11" data-line-number="11">                  <span class="dt">stop_particles =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-12" data-line-number="12">                  <span class="dt">stop_numerals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-13" data-line-number="13">                  <span class="dt">stop_symbols_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-14" data-line-number="14">                  <span class="dt">stop_punctuation_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb25-15" data-line-number="15">                  <span class="dt">stop_lemmas =</span> <span class="kw">c</span>(<span class="st">&quot;on&quot;</span>, <span class="st">&quot;a&quot;</span>),</a>
-<a class="sourceLine" id="cb25-16" data-line-number="16">                  <span class="dt">output_form =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="st">  </span><span class="kw">select</span>(language_name, lemma, word_form) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb25-18" data-line-number="18"><span class="st">  </span><span class="kw">apply</span>(<span class="dv">2</span>,tolower) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</a></code></pre></div>
-<pre><code>##    language_name lemma word_form
-## 1        english    on        on
-## 2        english     a         a
-## 3        english     a        an
-## 4         slovak     a         a
-## 5         slovak    on       ich
-## 6         slovak    on      nich
-## 7         slovak    on        ho
-## 8         slovak    on      neho
-## 9         slovak    on        im
-## 10        slovak    on        mu
-## 11        slovak    on      nemu
-## 12        slovak    on      nimi
-## 13        slovak    on       ním
-## 14        slovak    on       ňom
-## 15        slovak    on        on</code></pre>
-</div>
-<div id="the-stop_forms-argument" class="section level2">
-<h2>The <code>stop_forms</code> argument</h2>
-<p>You can add your own character vector of forms This will match your vector to the <code>word_form</code> column of <code>multilingual_stoplist</code> and output all matched word forms within your language selection.</p>
-<p>Please note that all words occurring in the output are words observed in the UD corpora. The UD corpora have no balanced-corpus policy, and not even the larger ones cover the entire vocabulary. The corpora for different languages are very diverse. Use this argument with caution.</p>
-<p>NB: this argument will not allow you to add forms that are not contained in <code>multilingual_stoplist</code>.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">generate_stoplist</span>(<span class="dt">lang_name =</span> <span class="kw">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Slovak&quot;</span>),</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">                  <span class="dt">stop_foreign_words =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">                  <span class="dt">stop_abbreviations =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">                  <span class="dt">stop_pronominals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">                  <span class="dt">stop_determiners_quantifiers =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-6" data-line-number="6">                  <span class="dt">stop_conjuctions =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb27-7" data-line-number="7">                  <span class="dt">stop_adpositions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-8" data-line-number="8">                  <span class="dt">stop_subordinating_conjunctions =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-9" data-line-number="9">                  <span class="dt">stop_auxiliary_verbs =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-10" data-line-number="10">                  <span class="dt">stop_interjections =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-11" data-line-number="11">                  <span class="dt">stop_particles =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-12" data-line-number="12">                  <span class="dt">stop_numerals =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-13" data-line-number="13">                  <span class="dt">stop_symbols_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-14" data-line-number="14">                  <span class="dt">stop_punctuation_crosslingual =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb27-15" data-line-number="15">                  <span class="dt">stop_forms =</span> <span class="kw">c</span>(<span class="st">&quot;on&quot;</span>, <span class="st">&quot;a&quot;</span>),</a>
-<a class="sourceLine" id="cb27-16" data-line-number="16">                  <span class="dt">output_form =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb27-17" data-line-number="17"><span class="st">  </span><span class="kw">select</span>(language_name, lemma, word_form) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb27-18" data-line-number="18"><span class="st">  </span><span class="kw">apply</span>(<span class="dv">2</span>,tolower) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</a></code></pre></div>
-<pre><code>##   language_name lemma word_form
-## 1       english    on        on
-## 2       english     a         a
-## 3        slovak     a         a
-## 4        slovak    on        on</code></pre>
-</div>
-<div id="the-custom_filter-argument" class="section level2">
-<h2>The <code>custom_filter</code> argument</h2>
-<p>If you are comfortable with the main verbs of <code>dplyr</code>, you are better advised to search <code>multilingual_stoplist</code> with them. Also, to make more powerful queries, you will have to make yourself familiar with the UD documentation for your language(s) of interest, especially with regard to how the Universal Features are defined. This, more than the coarse-grained POS tags, depends on the grammatical traditions of the given language community.</p>
-<p>The <code>custom_filter</code> argument allows you to incorporate a simple query without grouping. It has to be a character string in quotes. Mind to use a different type of quotes for variable values inside the query!</p>
-<p>The most sensible use of this argument, especially when debugging your query, seems to be with all linguistic filters set to <code>FALSE</code>. Otherwise you will not be able to manually check the result of your query.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">generate_stoplist</span>( <span class="dt">stop_foreign_words =</span> <span class="ot">FALSE</span>, <span class="dt">stop_abbreviations =</span> <span class="ot">FALSE</span>, <span class="dt">stop_pronominals =</span> <span class="ot">FALSE</span>, <span class="dt">stop_determiners_quantifiers =</span> <span class="ot">FALSE</span>, <span class="dt">stop_conjuctions =</span> <span class="ot">FALSE</span>, <span class="dt">stop_adpositions =</span> <span class="ot">FALSE</span>, <span class="dt">stop_subordinating_conjunctions =</span> <span class="ot">FALSE</span>, <span class="dt">stop_auxiliary_verbs =</span> <span class="ot">FALSE</span>, <span class="dt">stop_interjections =</span> <span class="ot">FALSE</span>, <span class="dt">stop_particles =</span> <span class="ot">FALSE</span>, <span class="dt">stop_numerals =</span> <span class="ot">FALSE</span>, <span class="dt">stop_symbols_crosslingual =</span> <span class="ot">FALSE</span>, <span class="dt">stop_punctuation_crosslingual =</span> <span class="ot">FALSE</span>, <span class="dt">custom_filter =</span> <span class="st">&quot;POS == 'DET' &amp; language_name == 'English'&quot;</span>,<span class="dt">output_form =</span> <span class="st">&quot;vector&quot;</span>)</a></code></pre></div>
-</div>
-<div id="possible-encoding-issues" class="section level2">
-<h2>Possible encoding issues</h2>
-<p>Encoding issues with non-Latin character sets may arise when running this package or viewing this vignette on a Windows-operated PC with a Latin-alphabet locale. With a Latin-alphabet locale, we have observed that a non-Latin vector output displays correctly both in RMarkdown and in the console, while the same output displays as a set of Unicode codes when in the form of data frame.</p>
-</div>
+<div id="noise-control" class="section level1">
+<h1>Noise control</h1>
+<p>Even high-quality reference corpora such as the UD treebanks contain tagging errors and typos. A two step frequency filter minimizes the noise: 1) a word form must occur more than three times with a given lemma; 2) if a word form with a given lemma (rendered by <code>n_formlemma</code>) occurs in<br />
+several different <code>upos</code> combinations (<code>n_uposlemma</code>), only combinations that represent more than 20% of <code>n_formlemma</code> remain listed.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
